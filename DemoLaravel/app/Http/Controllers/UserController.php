@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
-use App\Models\Product;
+use App\Models\Post;
 
-class ProductController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +16,9 @@ class ProductController extends Controller
     public function index()
     {
         //
-        $list_products = Product::all();
-        return view('products.listProduct', compact('list_products'));
+        $users = User::all();
+        // dd($users);
+        return view('users.listUser', compact('users'));
     }
 
     /**
@@ -27,7 +29,7 @@ class ProductController extends Controller
     public function create()
     {
         //
-        return view('products.createProduct');
+        return view('users.createUser');
     }
 
     /**
@@ -39,14 +41,11 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         //
-        $fileImage = $request->image;
-        $fileName = $fileImage->getClientOriginalName();
-        $fileImage->move('images',$fileName);
         $data = $request->all();
-        $data['image'] = $fileName;
         array_push($data, $data["created_at"] = now(), $data["updated_at"] = now());
-        Product::create($data);
-        return redirect()->route('listProduct');
+        // dd($data);
+        User::create($data);
+        return redirect('users/');
     }
 
     /**
@@ -58,6 +57,8 @@ class ProductController extends Controller
     public function show($id)
     {
         //
+        $listAllPostUser = User::with('posts')->where('id',$id)->get();
+        return view('users.showPosts',compact('listAllPostUser'));
     }
 
     /**
@@ -69,6 +70,9 @@ class ProductController extends Controller
     public function edit($id)
     {
         //
+        $user = User::find($id);
+
+        return view('users.editUser', compact('user'));
     }
 
     /**
@@ -81,6 +85,9 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $data = $request->except(['_token', '_method']);
+        User::where('id', $id)->update($data);
+        return redirect('users/');
     }
 
     /**
@@ -92,5 +99,7 @@ class ProductController extends Controller
     public function destroy($id)
     {
         //
+        User::destroy($id);
+        return redirect('users/');
     }
 }
