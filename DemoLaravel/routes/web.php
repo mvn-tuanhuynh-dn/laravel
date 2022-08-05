@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\productController;
+
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,9 +15,6 @@ use App\Http\Controllers\productController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::get('/','ProductController@index')->name('list-product');
-Route::get('/create-product','ProductController@create')->name('create-product');
+Route::get('/create/product','ProductController@create')->name('create-product');
+Route::get('/store/product','ProductController@store')->name('store-product');
