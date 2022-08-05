@@ -19,7 +19,7 @@ class CreateTableProduct extends Migration
 			$table->string('price');
 			$table->string('description');
 			$table->string('image');
-			$table->integer('quanlity');
+			$table->integer('quantity');
 			$table->rememberToken();
 			$table->timestamps();
         });

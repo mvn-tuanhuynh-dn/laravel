@@ -1,3 +1,8 @@
+@extends('layouts.home')
+
+@section('page-name')
+{{ __('common.screens.account_titles.list') }}
+@endsection
 @section('content')
     <div class="container">
         <h1>List Product</h1>
@@ -15,7 +20,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($list_products as $key => $product)
+                @foreach($listProduct as $key => $product)
                     <tr>
                         <td>{{ $key+1 }}</td>
                         <td>{{ $product->name }}</td>

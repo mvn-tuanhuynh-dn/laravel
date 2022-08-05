@@ -1,5 +1,9 @@
-@section('content')
+@extends('layouts.home')
 
+@section('page-name')
+{{ __('common.screens.account_titles.list') }}
+@endsection
+@section('content')
         <div class="container">
             <h1>Add Product</h1>
             <a href="{{ route('list-product') }}"><button type="button" class="btn btn-primary">Back</button></a>
@@ -31,4 +35,4 @@
             </form>
         </div>
 
-@endsection 
+@endsection
